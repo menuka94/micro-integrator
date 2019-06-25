@@ -18,6 +18,8 @@
 
 package org.wso2.carbon.esb.mediator.test.classMediator;
 
+import javax.xml.namespace.QName;
+import java.io.File;
 import org.apache.axiom.om.OMElement;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -26,9 +28,6 @@ import org.wso2.carbon.automation.engine.annotations.ExecutionEnvironment;
 import org.wso2.carbon.automation.engine.annotations.SetEnvironment;
 import org.wso2.esb.integration.common.utils.ESBIntegrationTest;
 import org.wso2.esb.integration.common.utils.common.ServerConfigurationManager;
-
-import java.io.File;
-import javax.xml.namespace.QName;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -51,8 +50,8 @@ public class PropertyPersistenceAddingTestCase extends ESBIntegrationTest {
         serverConfigurationManager.restartGracefully();
 
         super.init();
-        loadESBConfigurationFromClasspath(
-                "/artifacts/ESB/mediatorconfig/class/class_property_persistence_three_properties.xml");
+        // loadESBConfigurationFromClasspath(
+        //         "/artifacts/ESB/mediatorconfig/class/class_property_persistence_three_properties.xml");
     }
 
     @SetEnvironment(executionEnvironments = { ExecutionEnvironment.STANDALONE })
@@ -60,7 +59,8 @@ public class PropertyPersistenceAddingTestCase extends ESBIntegrationTest {
             + " -Class mediator property persistence -adding properties")
     public void testMediationPropertyPersistenceAdding() throws Exception {
 
-        OMElement response = axis2Client.sendSimpleStockQuoteRequest(getMainSequenceURL(), null, "WSO2");
+        OMElement response = axis2Client.sendSimpleStockQuoteRequest(
+                getProxyServiceURLHttp("ClassPropertyPersistenceThreePropertiesTestProxy"), null, "WSO2");
 
         String lastPrice = response.getFirstElement()
                 .getFirstChildWithName(new QName("http://services.samples/xsd", "last")).getText();
@@ -91,10 +91,11 @@ public class PropertyPersistenceAddingTestCase extends ESBIntegrationTest {
         serverConfigurationManager.restartGracefully();
 
         super.init();
-        loadESBConfigurationFromClasspath(
-                "/artifacts/ESB/mediatorconfig/class/class_property_persistence_five_properties.xml");
+        // loadESBConfigurationFromClasspath(
+        //         "/artifacts/ESB/mediatorconfig/class/class_property_persistence_five_properties.xml");
 
-        response = axis2Client.sendSimpleStockQuoteRequest(getMainSequenceURL(), null, "IBM");
+        response = axis2Client.sendSimpleStockQuoteRequest(
+                getProxyServiceURLHttp("ClassPropertyPersistenceFivePropertiesTestProxy"), null, "IBM");
 
         lastPrice = response.getFirstElement().getFirstChildWithName(new QName("http://services.samples/xsd", "last"))
                 .getText();
