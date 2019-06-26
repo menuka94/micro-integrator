@@ -18,14 +18,13 @@
 
 package org.wso2.carbon.esb.mediator.test.classMediator;
 
+import javax.xml.namespace.QName;
 import org.apache.axiom.om.OMElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.wso2.esb.integration.common.utils.ESBIntegrationTest;
-
-import javax.xml.namespace.QName;
 
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
@@ -35,30 +34,31 @@ public class InvokeAfterRemovingPropertiesTestCase extends ESBIntegrationTest {
     @BeforeClass(alwaysRun = true)
     public void setEnvironment() throws Exception {
         super.init();
-
     }
 
     @Test(groups = "wso2.esb", description = "Invoke after removing some properties")
     public void testAfterRemovingProperties() throws Exception {
-        loadSampleESBConfiguration(380);
+        // loadSampleESBConfiguration(380);
         OMElement response, editedResponse;
 
-        response = axis2Client.sendSimpleStockQuoteRequest(getMainSequenceURL(), null, "WSO2");
+        response = axis2Client.sendSimpleStockQuoteRequest(
+                getProxyServiceURLHttp("ClassMediatorTestInvokeAfterRemovingProperties1"), null, "WSO2");
         assertNotNull(response, "Response message null");
         String responseString = response.getFirstElement()
-                .getFirstChildWithName(new QName("http://services.samples/xsd", "last")).getText().toString();
+                .getFirstChildWithName(new QName("http://services.samples/xsd", "last")).getText();
         double discountedPrice = Double.parseDouble(responseString);
         assertTrue(discountedPrice > 0);
 
-        String filePath = "/artifacts/ESB/synapseconfig/class_mediator/synapse.xml";
-        loadESBConfigurationFromClasspath(filePath);
+        // String filePath = "/artifacts/ESB/synapseconfig/class_mediator/synapse.xml";
+        // loadESBConfigurationFromClasspath(filePath);
 
-        editedResponse = axis2Client.sendSimpleStockQuoteRequest(getMainSequenceURL(), null, "WSO2");
+        editedResponse = axis2Client.sendSimpleStockQuoteRequest(
+                getProxyServiceURLHttp("ClassMediatorTestInvokeAfterRemovingProperties2"), null, "WSO2");
         assertNotNull(editedResponse, "Response message null");
 
         int editResponse = (int) Double.parseDouble(
                 editedResponse.getFirstElement().getFirstChildWithName(new QName("http://services.samples/xsd", "last"))
-                        .getText().toString());
+                        .getText());
 
         Assert.assertEquals(editResponse, 0, "Value mismatched");
     }
