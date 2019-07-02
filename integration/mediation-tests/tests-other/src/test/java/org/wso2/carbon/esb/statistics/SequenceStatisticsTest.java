@@ -54,14 +54,14 @@ public class SequenceStatisticsTest extends ESBIntegrationTest {
                         + "synapse.properties"));
         super.init();
 
-        thriftServer.resetMsgCount();
-        thriftServer.resetPreservedEventList();
+        // thriftServer.resetMsgCount();
+        // thriftServer.resetPreservedEventList();
         //load esb configuration to the server
-        loadESBConfigurationFromClasspath("/artifacts/ESB/synapseconfig/statistics/sequencereference.xml");
-        thriftServer.waitToReceiveEvents(20000, 6); //waiting for esb to send artifact config data to the thriftserver
+        // loadESBConfigurationFromClasspath("/artifacts/ESB/synapseconfig/statistics/sequencereference.xml");
+        // thriftServer.waitToReceiveEvents(20000, 6); //waiting for esb to send artifact config data to the thriftserver
 
         //Checking whether all the artifact configuration events are received
-        Assert.assertEquals("Six configuration events are required", 6, thriftServer.getMsgCount());
+        // Assert.assertEquals("Six configuration events are required", 6, thriftServer.getMsgCount());
     }
 
     @Test(groups = { "wso2.esb" }, description = "Proxy statistics message count check.")
