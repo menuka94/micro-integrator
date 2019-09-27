@@ -49,7 +49,7 @@ public class CliProxyserviceTestCase {
     @Test
     public void miShowProxyTest() throws IOException {
 
-        List<String> outputForCLICommand = TestUtils.getOutputForCLICommandArtifactName(Constants.PROXYSERVICE, Constants.SHOW, CLI_TEST_PROXY);
+        List<String> outputForCLICommand = TestUtils.getOutputForCLICommandArtifactName(Constants.PROXYSERVICE, Constants.SHOW, CLI_ADDRESS_PROXY);
         Assert.assertEquals(outputForCLICommand.get(0), "Name - cliAddressProxy");
     }
 

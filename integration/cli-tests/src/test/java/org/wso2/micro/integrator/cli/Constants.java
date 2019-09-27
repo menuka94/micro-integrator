@@ -31,4 +31,6 @@ public class Constants {
     static final String REMOTE_UPDATE = "update";
     static final String REMOTE_SELECT = "select";
     static final String REMOTE_REMOVE = "remove";
+    static final String LOGIN = "login";
+    static final String LOGOUT = "logout";
 }
