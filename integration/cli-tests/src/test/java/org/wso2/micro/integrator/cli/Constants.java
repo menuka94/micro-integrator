@@ -22,15 +22,18 @@ public class Constants {
 
     static final String API = "api";
     static final String SHOW = "show";
-    static final String COMPOSITAPP = "compositeapp";
+    static final String COMPOSITEAPP = "compositeapp";
     static final String ENDPOINT = "endpoint";
     static final String PROXYSERVICE = "proxyservice";
     static final String SEQUENCE = "sequence";
-    static final String REMOTE = "remote";
+    public static final String REMOTE = "remote";
     static final String REMOTE_ADD = "add";
     static final String REMOTE_UPDATE = "update";
     static final String REMOTE_SELECT = "select";
     static final String REMOTE_REMOVE = "remove";
-    static final String LOGIN = "login";
-    static final String LOGOUT = "logout";
+    public static final String LOGIN = "login";
+    public static final String LOGOUT = "logout";
+
+    public static final String DEFAULT_USERNAME = "admin";
+    public static final String DEFAULT_PASSWORD= "admin";
 }

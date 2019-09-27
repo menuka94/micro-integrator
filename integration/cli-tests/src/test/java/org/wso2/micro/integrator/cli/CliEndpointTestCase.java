@@ -18,16 +18,23 @@
 
 package org.wso2.micro.integrator.cli;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
 import java.io.IOException;
 import java.util.List;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 import util.TestUtils;
 
 public class CliEndpointTestCase {
 
     private static final String CLI_TEST_EP = "SimpleEP";
     private static final String CLI_STOCK_EP = "SimpleStockQuoteServiceEndpoint";
+
+    @BeforeTest
+    public void beforeTests() throws IOException {
+        TestUtils.login();
+    }
 
     /**
      * Get information about all the Endpoints
@@ -64,6 +71,11 @@ public class CliEndpointTestCase {
 
         List<String> outputForCLICommand = TestUtils.getOutputForCLICommandArtifactName(Constants.ENDPOINT, Constants.SHOW, "CLITestEP");
         Assert.assertEquals(outputForCLICommand.get(0), "[ERROR] Getting Information of Endpoint 404 Not Found");
+    }
+
+    @AfterTest
+    public void afterTests() {
+        System.out.println("LOGOUT");
     }
 
 }

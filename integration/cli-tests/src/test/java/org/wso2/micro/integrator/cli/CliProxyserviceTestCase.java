@@ -18,7 +18,9 @@
 
 package org.wso2.micro.integrator.cli;
 
+import org.junit.BeforeClass;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import java.io.IOException;
 import java.util.List;
@@ -28,6 +30,11 @@ public class CliProxyserviceTestCase {
 
     private static final String CLI_ADDRESS_PROXY = "cliAddressProxy";
     private static final String CLI_TEST_PROXY = "cliTestProxy";
+
+    @BeforeTest
+    public void beforeTests() throws IOException {
+        TestUtils.login();
+    }
 
     /**
      * Get information about all the Proxy services

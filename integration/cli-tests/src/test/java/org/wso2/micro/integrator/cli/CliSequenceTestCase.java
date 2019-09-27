@@ -18,17 +18,22 @@
 
 package org.wso2.micro.integrator.cli;
 
-import util.TestUtils;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 import java.io.IOException;
 import java.util.List;
+import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+import util.TestUtils;
 
 public class CliSequenceTestCase {
 
     private static final String CLI_TEST_SEQUENCE = "CliTestSequence";
     private static final String CLI_SAMPLE_SEQUENCE = "CliSampleSequence";
+
+    @BeforeTest
+    public void beforeTests() throws IOException {
+        TestUtils.login();
+    }
 
     /**
      * Get information about all Sequence

@@ -18,10 +18,13 @@
 
 package org.wso2.micro.integrator.cli;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
 import java.io.IOException;
 import java.util.List;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 import util.TestUtils;
 
 public class CliAPITestCase {
@@ -29,7 +32,13 @@ public class CliAPITestCase {
     private static final String CLI_SAMPLE_API_1 = "cliSampleApi_1";
     private static final String CLI_SAMPLE_API_2 = "cliSampleApi_2";
 
+    @BeforeClass
+    public void beforeTests() throws IOException {
+        TestUtils.login();
+    }
+
     /**
+     *
      * Get information about all the API's
      */
     @Test
@@ -62,5 +71,10 @@ public class CliAPITestCase {
 
         List<String> outputForCLICommand = TestUtils.getOutputForCLICommandArtifactName(Constants.API, Constants.SHOW, "TestAPI");
         Assert.assertEquals(outputForCLICommand.get(0), "[ERROR] Getting Information of the API 404 Not Found");
+    }
+
+    @AfterClass
+    public void afterTests() throws IOException {
+        TestUtils.logout();
     }
 }

@@ -18,11 +18,12 @@
 
 package org.wso2.micro.integrator.cli;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 import util.TestUtils;
 
 public class CliRemoteTestCase {
@@ -32,6 +33,11 @@ public class CliRemoteTestCase {
     private static final String REMOTE_HOST = "192.168.1.15";
     private static final String GET_REMOTE_HOST_UPDATE = "192.168.1.17";
     private static final String REMOTE_PORT = "9164";
+
+    @BeforeTest
+    public void beforeTests() throws IOException {
+        TestUtils.login();
+    }
 
     /**
      * Test to add a Micro Integrator server

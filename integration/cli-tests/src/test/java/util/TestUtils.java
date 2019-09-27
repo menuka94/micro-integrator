@@ -23,11 +23,32 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import org.wso2.micro.integrator.cli.Constants;
 
 public class TestUtils {
 
     private TestUtils() {
 
+    }
+
+
+    public static void login() throws IOException {
+        System.out.println("LOGIN");
+        // mi remote login admin admin
+        String[] arguments = new String[]{getMIBuildPath(), Constants.REMOTE, Constants.LOGIN,
+                Constants.DEFAULT_USERNAME, Constants.DEFAULT_PASSWORD};
+        List<String> strings = runCommandWithArgs(arguments);
+        System.out.println("Printing outputs");
+        for (String string : strings) {
+            System.out.println(string);
+        }
+    }
+
+
+    public static void logout() throws IOException {
+        // mi remote logout
+        String[] arguments = new String[]{getMIBuildPath(), Constants.REMOTE, Constants.LOGOUT};
+        runCommandWithArgs(arguments);
     }
 
     /**
@@ -46,15 +67,19 @@ public class TestUtils {
         return runCommandWithArgs(arguments);
     }
 
-    public static List<String> getOutputForCLICommandArtifactName(String artifactType, String command, String artifactName) throws
+    public static List<String> getOutputForCLICommandArtifactName(String artifactType, String command, String artifact) throws
             IOException {
-        String[] arguments = new String[]{getMIBuildPath(), artifactType, command, artifactName};
+        String[] arguments = new String[]{getMIBuildPath(), artifactType, command, artifact};
         return runCommandWithArgs(arguments);
     }
 
     private static List<String> runCommandWithArgs(String[] arguments) throws IOException {
 
         Process process = runMiCommand(arguments);
+        System.out.println("Arguments: ");
+        for (String argument : arguments) {
+            System.out.println(argument);
+        }
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         String line;
         List<String> lines = new ArrayList<>();
@@ -64,6 +89,7 @@ public class TestUtils {
 
         return lines;
     }
+
 
     /**
      * CLI arguments should be pass in correct order
